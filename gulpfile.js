@@ -7,7 +7,6 @@ var spawn = require('child_process').spawn;
 var rimraf = require('rimraf');
 var runSequence = require('run-sequence');
 var bump = require('gulp-bump');
-var git = require('gulp-git');
 
 gulp.task('browserify', function() {
     return browserify(__dirname + '/js/index.js')
@@ -35,15 +34,36 @@ gulp.task('clean', function (cb) {
     rimraf(__dirname + '/public/js', cb);
 });
 
-gulp.task('publish', function(){
+gulp.task('commit', function (cb) {
     var pkg = require('./package.json');
     var v = 'v' + pkg.version;
     var message = 'Release ' + v;
 
-    git.commit(message, { args: '-a' }).end();
-    git.tag(v, message);
-    git.push('origin', 'master', '--tags');
+    spawn('git', ['commit', '-a', '-m', message], { stdio: 'inherit' })
+        .on('close', function (code) {
+            cb(code !== 0);
+        });
+});
 
+gulp.task('tag', function (cb) {
+    var pkg = require('./package.json');
+    var v = 'v' + pkg.version;
+
+    spawn('git', ['tag', v], { stdio: 'inherit' })
+        .on('close', function (code) {
+            cb(code !== 0);
+        });
+});
+
+gulp.task('push', function (cb) {
+    spawn('git', ['push', 'origin', 'master', '--tags'], { stdio: 'inherit' })
+        .on('close', function (code) {
+            cb(code !== 0);
+        });
+});
+
+gulp.task('publish', function (cb){
+    runSequence('commit', 'tag', 'push', cb);
 });
 
 gulp.task('deploy', function (cb) {
