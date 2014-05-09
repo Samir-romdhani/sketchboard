@@ -24,10 +24,10 @@ gulp.task('bump', function () {
 });
 
 gulp.task('jitsu', function (cb) {
-  var jitsu = spawn('jitsu', ['deploy'], { stdio: 'inherit' });
-  jitsu.on('close', function (code) {
-    cb(code !== 0);
-  });
+    spawn('jitsu', ['deploy'], { stdio: 'inherit' })
+        .on('close', function (code) {
+            cb(code !== 0);
+        });
 });
 
 gulp.task('clean', function (cb) {
