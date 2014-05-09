@@ -18,7 +18,6 @@ var bg = new TilingBG();
 stage.addChild(bg);
 
 var docDrag = new DOCDrag(bg);
-docDrag.realPosition = { x: 3500000, y: 3500000 };
 stage.addChild(docDrag);
 
 var text = new PIXI.Text(docDrag.quadrant(), { font: '12px verdana', fill: 'black' });
@@ -31,11 +30,11 @@ sidebar.position.x = 20;
 sidebar.position.y = 50;
 
 sidebar.on('move-button', function () {
-    docDrag.interactive = true;
+    docDrag.drawing = false;
 });
 
 sidebar.on('brush-button', function () {
-    docDrag.interactive = false;
+    docDrag.drawing = true;
 });
 
 stage.addChild(sidebar);
@@ -43,6 +42,11 @@ stage.addChild(sidebar);
 var colorsbar = new Colorsbar();
 colorsbar.position.x = 20;
 colorsbar.position.y = 100;
+
+colorsbar.on('color', function (clr) {
+    docDrag.color = clr;
+});
+
 stage.addChild(colorsbar);
 
 function animate() {

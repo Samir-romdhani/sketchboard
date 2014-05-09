@@ -45,7 +45,7 @@ var Sidebar = function () {
         color.interactive = true;
 
         color.mousedown = color.touchstart = function() {
-            colorsbar.emit('color-changed', clr);
+            colorsbar.emit('color', clr);
             currentColor.clear();
             currentColor.beginFill(clr);
             currentColor.drawRect(0, 0, 76, 32);
