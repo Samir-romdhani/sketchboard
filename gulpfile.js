@@ -7,11 +7,18 @@ var spawn = require('child_process').spawn;
 var rimraf = require('rimraf');
 var runSequence = require('run-sequence');
 var bump = require('gulp-bump');
+var uglify = require('gulp-uglify');
 
 gulp.task('browserify', function() {
     return browserify(__dirname + '/js/index.js')
         .bundle()
         .pipe(source('sketchboard.js'))
+        .pipe(gulp.dest(__dirname + '/public/js'));
+});
+
+gulp.task('uglify', function() {
+    return gulp.src(__dirname + '/public/js/*.js')
+        .pipe(uglify(/* {outSourceMap: true} */))
         .pipe(gulp.dest(__dirname + '/public/js'));
 });
 
@@ -67,7 +74,7 @@ gulp.task('publish', function (cb){
 });
 
 gulp.task('deploy', function (cb) {
-    runSequence('build', 'bump', 'jitsu', 'clean', 'publish', cb);
+    runSequence('build', 'uglify', 'bump', 'jitsu', 'clean', 'publish', cb);
 });
 
 gulp.task('server', function (cb) {

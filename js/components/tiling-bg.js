@@ -1,5 +1,5 @@
 'use strict';
-var PIXI = require('pixi.js');
+var PIXI = require('pixi.js/bin/pixi.dev.js');
 
 module.exports = function () {
     var texture = PIXI.Texture.fromImage('images/grid.png');

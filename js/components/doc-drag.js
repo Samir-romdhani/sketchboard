@@ -1,6 +1,6 @@
 'use strict';
 
-var PIXI = require('pixi.js');
+var PIXI = require('pixi.js/bin/pixi.dev.js');
 
 module.exports = function (target) {
     var docDrag = new PIXI.DisplayObjectContainer();

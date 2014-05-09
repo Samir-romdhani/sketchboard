@@ -1,6 +1,6 @@
 'use strict';
 
-var PIXI = require('pixi.js');
+var PIXI = require('pixi.js/bin/pixi.dev.js');
 var TilingBG = require('./components/tiling-bg.js');
 var DOCDrag = require('./components/doc-drag.js');
 
