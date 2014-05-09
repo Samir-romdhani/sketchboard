@@ -1,5 +1,5 @@
 {
-  "name": "mmo",
+  "name": "sketchboard",
   "private": true,
   "author": {
     "name": "Vsevolod Strukchinsky",
@@ -10,7 +10,7 @@
     "test": "mocha tests/*.test.js -R spec",
     "start": "node server"
   },
-  "version": "0.0.6-17",
+  "version": "0.0.0",
   "dependencies": {
     "express": "^4",
     "grid": "~0.0.1",
