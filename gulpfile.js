@@ -67,5 +67,5 @@ gulp.task('publish', function (cb){
 });
 
 gulp.task('deploy', function (cb) {
-    runSequence('build', 'bump', 'jitsu', 'clean', 'push', cb);
+    runSequence('build', 'bump', 'jitsu', 'clean', 'publish', cb);
 });

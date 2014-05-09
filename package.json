@@ -10,22 +10,22 @@
     "test": "mocha tests/*.test.js -R spec",
     "start": "node server"
   },
-  "version": "0.0.1",
+  "version": "0.0.2",
   "dependencies": {
     "express": "^4",
     "grid": "~0.0.1",
-    "grid.js": "~0.0.0",
     "hbs": "^2.6.0",
     "lodash": "^2.4.1",
     "mongodb": "^1.4.0",
-    "morgan": "^1.0.1",
-    "pixi.js": "^1.5.2"
+    "morgan": "^1.0.1"
   },
   "devDependencies": {
     "browserify": "^3.46.0",
     "gulp": "^3.6.2",
     "gulp-bump": "^0.1.8",
+    "grid.js": "~0.0.0",
     "mocha": "^1.17.1",
+    "pixi.js": "^1.5.2",
     "rimraf": "^2.2.8",
     "run-sequence": "^0.3.6",
     "supertest": "^0.9.0",
