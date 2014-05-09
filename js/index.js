@@ -4,6 +4,7 @@ var PIXI = require('pixi.js/bin/pixi.dev.js');
 var TilingBG = require('./components/tiling-bg.js');
 var DOCDrag = require('./components/doc-drag.js');
 var Sidebar = require('./components/sidebar.js');
+var Colorsbar = require('./components/colorsbar.js');
 
 var stage = new PIXI.Stage(0xFFFFFF, true);
 var renderer = PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight);
@@ -38,6 +39,11 @@ sidebar.on('brush-button', function () {
 });
 
 stage.addChild(sidebar);
+
+var colorsbar = new Colorsbar();
+colorsbar.position.x = 20;
+colorsbar.position.y = 100;
+stage.addChild(colorsbar);
 
 function animate() {
     text.setText(docDrag.quadrant());

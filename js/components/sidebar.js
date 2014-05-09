@@ -55,6 +55,4 @@ var Sidebar = function () {
 _.mixin(Sidebar.prototype, PIXI.DisplayObjectContainer.prototype);
 _.mixin(Sidebar.prototype, Emitter.prototype);
 
-console.log(Sidebar.prototype);
-
 module.exports = Sidebar;
