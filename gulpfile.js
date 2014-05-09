@@ -69,3 +69,14 @@ gulp.task('publish', function (cb){
 gulp.task('deploy', function (cb) {
     runSequence('build', 'bump', 'jitsu', 'clean', 'publish', cb);
 });
+
+gulp.task('server', function (cb) {
+    spawn('node', ['server'], { stdio: 'inherit' })
+        .on('close', function (code) {
+            cb(code !== 0);
+        });
+});
+
+gulp.task('run', function (cb) {
+    runSequence('build', 'server', cb);
+});
