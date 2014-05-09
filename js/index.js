@@ -37,6 +37,9 @@ docDrag.on('line', function (a, b) {
 
 stage.addChild(docDrag);
 
+var graphics = new PIXI.Graphics();
+stage.addChild(graphics);
+
 // var text = new PIXI.Text(docDrag.quadrant(), { font: '12px verdana', fill: 'black' });
 // text.position.x = 20;
 // text.position.y = 20;
@@ -68,9 +71,6 @@ colorsbar.on('color', function (clr) {
 });
 
 stage.addChild(colorsbar);
-
-var graphics = new PIXI.Graphics();
-stage.addChild(graphics);
 
 function animate() {
     // text.setText(docDrag.quadrant());
