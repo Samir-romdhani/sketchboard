@@ -23,7 +23,7 @@ var colors = [
     0xFFFFFF
 ];
 
-var Sidebar = function () {
+var Colorsbar = function () {
     PIXI.DisplayObjectContainer.call(this);
     Emitter.call(this);
     var colorsbar = this;
@@ -57,7 +57,7 @@ var Sidebar = function () {
     return colorsbar;
 };
 
-_.mixin(Sidebar.prototype, PIXI.DisplayObjectContainer.prototype);
-_.mixin(Sidebar.prototype, Emitter.prototype);
+Colorsbar.prototype = PIXI.DisplayObjectContainer.prototype;
+_.mixin(Colorsbar.prototype, Emitter.prototype);
 
-module.exports = Sidebar;
+module.exports = Colorsbar;

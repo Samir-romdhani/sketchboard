@@ -48,7 +48,7 @@ var Sidebar = function () {
     return sidebar;
 };
 
-_.mixin(Sidebar.prototype, PIXI.DisplayObjectContainer.prototype);
+Sidebar.prototype = PIXI.DisplayObjectContainer.prototype;
 _.mixin(Sidebar.prototype, Emitter.prototype);
 
 module.exports = Sidebar;
