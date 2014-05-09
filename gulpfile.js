@@ -4,7 +4,8 @@ var browserify = require('browserify');
 var gulp = require('gulp');
 var source = require('vinyl-source-stream');
 var spawn = require('child_process').spawn;
-var rimraf = require('rimraf'); // rimraf directly
+var rimraf = require('rimraf');
+var runSequence = require('run-sequence');
 
 gulp.task('browserify', function() {
     return browserify(__dirname + '/js/index.js')
@@ -26,4 +27,6 @@ gulp.task('clean', function (cb) {
     rimraf(__dirname + '/public/js', cb);
 });
 
-gulp.task('deploy', ['build', 'jitsu', 'clean']);
+gulp.task('deploy', function (cb) {
+    runSequence('build', 'jitsu', 'clean', cb);
+});
