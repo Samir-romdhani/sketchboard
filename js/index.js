@@ -26,6 +26,17 @@ text.position.y = 20;
 stage.addChild(text);
 
 var sidebar = new Sidebar();
+sidebar.position.x = 32;
+sidebar.position.y = 64;
+
+sidebar.on('move-button', function () {
+    docDrag.interactive = true;
+});
+
+sidebar.on('brush-button', function () {
+    docDrag.interactive = false;
+});
+
 stage.addChild(sidebar);
 
 function animate() {

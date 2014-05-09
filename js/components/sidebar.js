@@ -1,9 +1,13 @@
 'use strict';
 
 var PIXI = require('pixi.js/bin/pixi.dev.js');
+var _ = require('lodash');
+var Emitter = require('wildemitter');
 
-module.exports = function () {
-    var sidebar = new PIXI.DisplayObjectContainer();
+var Sidebar = function () {
+    PIXI.DisplayObjectContainer.call(this);
+    Emitter.call(this);
+    var sidebar = this;
 
     var brushTexture = PIXI.Texture.fromImage('images/brush.png');
     var brushButton = new PIXI.Sprite(brushTexture);
@@ -18,7 +22,7 @@ module.exports = function () {
     brushButton.alpha = 0.5;
 
     brushButton.mousedown = brushButton.touchstart = function() {
-        sidebar.mode = 'brush';
+        sidebar.emit('brush-button');
         moveButton.alpha = 0.5;
         this.alpha = 1;
     };
@@ -33,16 +37,24 @@ module.exports = function () {
     moveButton.scale.y = 1;
     moveButton.position.x = 40;
     moveButton.position.y = 0;
-    moveButton.alpha = 0.5;
+    moveButton.alpha = 1;
 
     moveButton.mousedown = brushButton.touchstart = function() {
-        sidebar.mode = 'move';
+        sidebar.emit('move-button');
         brushButton.alpha = 0.5;
         this.alpha = 1;
     };
 
+    sidebar.mode = 'move';
     sidebar.addChild(brushButton);
     sidebar.addChild(moveButton);
 
     return sidebar;
 };
+
+_.mixin(Sidebar.prototype, PIXI.DisplayObjectContainer.prototype);
+_.mixin(Sidebar.prototype, Emitter.prototype);
+
+console.log(Sidebar.prototype);
+
+module.exports = Sidebar;

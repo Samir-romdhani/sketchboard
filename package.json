@@ -17,7 +17,8 @@
     "hbs": "^2.6.0",
     "lodash": "^2.4.1",
     "mongodb": "^1.4.0",
-    "morgan": "^1.0.1"
+    "morgan": "^1.0.1",
+    "wildemitter": "^1.0.1"
   },
   "devDependencies": {
     "browserify": "^3.46.0",
