@@ -41,8 +41,9 @@ gulp.task('publish', function(){
     var message = 'Release ' + v;
 
     git.commit(message, { args: '-a' }).end();
-    git.tag(v, message, function() {});
+    git.tag(v, message);
     git.push('origin', 'master', '--tags');
+
 });
 
 gulp.task('deploy', function (cb) {
