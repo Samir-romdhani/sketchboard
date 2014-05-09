@@ -17,13 +17,16 @@ var Sidebar = function () {
     brushButton.scale.y = 0.25;
     brushButton.position.x = 0;
     brushButton.position.y = 0;
-    brushButton.alpha = 0.5;
+    brushButton.alpha = 0.3;
 
     brushButton.mousedown = brushButton.touchstart = function() {
         sidebar.emit('brush-button');
-        moveButton.alpha = 0.5;
-        this.alpha = 1;
     };
+
+    sidebar.on('brush-button', function () {
+        moveButton.alpha = 0.3;
+        brushButton.alpha = 1;
+    });
 
     var moveTexture = PIXI.Texture.fromImage('images/move.png');
     var moveButton = new PIXI.Sprite(moveTexture);
@@ -37,9 +40,12 @@ var Sidebar = function () {
 
     moveButton.mousedown = brushButton.touchstart = function() {
         sidebar.emit('move-button');
-        brushButton.alpha = 0.5;
-        this.alpha = 1;
     };
+
+    sidebar.on('move-button', function () {
+        brushButton.alpha = 0.3;
+        moveButton.alpha = 1;
+    });
 
     sidebar.mode = 'move';
     sidebar.addChild(brushButton);

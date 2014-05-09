@@ -63,6 +63,7 @@ colorsbar.position.y = 100;
 
 var color;
 colorsbar.on('color', function (clr) {
+    sidebar.emit('brush-button');
     color = clr;
 });
 
