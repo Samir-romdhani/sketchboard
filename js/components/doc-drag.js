@@ -52,7 +52,6 @@ module.exports = function (target) {
             x: p.x - this.realPosition.x,
             y: p.y - this.realPosition.y
         };
-        console.log(this.realPosition, p);
         return g;
     };
 
