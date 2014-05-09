@@ -22,8 +22,4 @@ app.get('/', function(req, res) {
     res.render('index');
 });
 
-app.get('/sketch', function(req, res) {
-    res.render('sketch');
-});
-
 module.exports = app;
