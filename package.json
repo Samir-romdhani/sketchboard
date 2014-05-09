@@ -10,7 +10,7 @@
     "test": "mocha tests/*.test.js -R spec",
     "start": "gulp build && node server"
   },
-  "version": "0.0.0-2",
+  "version": "0.0.0-3",
   "dependencies": {
     "express": "^4",
     "grid": "~0.0.1",
@@ -19,9 +19,7 @@
     "lodash": "^2.4.1",
     "mongodb": "^1.4.0",
     "morgan": "^1.0.1",
-    "pixi.js": "^1.5.2"
-  },
-  "devDependencies": {
+    "pixi.js": "^1.5.2",
     "browserify": "^3.46.0",
     "gulp": "^3.6.2",
     "mocha": "^1.17.1",
