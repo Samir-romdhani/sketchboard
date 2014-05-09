@@ -36,12 +36,13 @@ gulp.task('clean', function (cb) {
 });
 
 gulp.task('publish', function(){
-    var version = require('./package.json').version;
-    return git
-        .commit('v' + version, { args: '-A' })
-        .tag('v' + version, 'Releasing v' + version + ' version')
-        .push('origin', 'master')
-        .end();
+    var pkg = require('./package.json');
+    var v = 'v' + pkg.version;
+    var message = 'Release ' + v;
+
+    git.commit(message, { args: '-a' }).end();
+    git.tag(v, message);
+    git.push('origin', 'master', '--tags');
 });
 
 gulp.task('deploy', function (cb) {
