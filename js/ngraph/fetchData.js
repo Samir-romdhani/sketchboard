@@ -33,5 +33,6 @@ module.exports = function (graph) {
 
         graph.endUpdate();
 
+        nodes = msg;
     };
 };
