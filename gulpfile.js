@@ -9,12 +9,21 @@ var runSequence = require('run-sequence');
 var bump = require('gulp-bump');
 var uglify = require('gulp-uglify');
 
-gulp.task('browserify', function() {
-    return browserify(__dirname + '/js/index.js')
+gulp.task('browserify_index', function() {
+    return browserify(__dirname + '/js/sketchboard.js')
         .bundle()
         .pipe(source('sketchboard.js'))
         .pipe(gulp.dest(__dirname + '/public/js'));
 });
+
+gulp.task('browserify_map', function() {
+    return browserify(__dirname + '/js/map.js')
+        .bundle()
+        .pipe(source('map.js'))
+        .pipe(gulp.dest(__dirname + '/public/js'));
+});
+
+gulp.task('browserify', ['browserify_index', 'browserify_map']);
 
 gulp.task('uglify', function() {
     return gulp.src(__dirname + '/public/js/*.js')

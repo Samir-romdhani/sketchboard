@@ -19,6 +19,10 @@
     "lodash": "^2.4.1",
     "mongodb": "^1.4.0",
     "morgan": "^1.0.1",
+    "ngraph.forcelayout": "0.0.4",
+    "ngraph.generators": "0.0.2",
+    "ngraph.physics.simulator": "0.0.4",
+    "ngraph.graph": "0.0.2",
     "wildemitter": "^1.0.1"
   },
   "devDependencies": {

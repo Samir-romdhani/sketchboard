@@ -19,7 +19,11 @@ if ('development' === env) {
 }
 
 app.get('/', function(req, res) {
-    res.render('index', { title: 'Sketchboard' });
+    res.render('index', { title: 'Draw!' });
+});
+
+app.get('/map', function(req, res) {
+    res.render('map', { title: 'Map!' });
 });
 
 module.exports = app;
