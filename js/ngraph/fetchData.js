@@ -28,6 +28,9 @@ module.exports = function (graph) {
 
         _.forEach(addedNodes, function (id) {
             graph.addNode(id);
+            _.forEach(msg[id], function (link) {
+                graph.addLink(id, link);
+            });
         });
 
         graph.endUpdate();
