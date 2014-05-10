@@ -12,11 +12,10 @@ module.exports = function (graph) {
         console.log('Opened WebSocket to /map');
     };
 
-    var nodes;
+    var nodes = {};
 
     socket.onmessage = function (e) {
         var msg = pson.decode(e.data);
-        if (!nodes) { nodes = msg; }
 
         var removedNodes = _.difference(_.keys(nodes), _.keys(msg));
         var addedNodes = _.difference(_.keys(msg), _.keys(nodes));
