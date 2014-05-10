@@ -14,16 +14,18 @@
   "dependencies": {
     "express": "^4",
     "grid": "~0.0.1",
-    "grid.js": "~0.0.2",
+    "grid.js": "0.0.4",
     "hbs": "^2.6.0",
     "lodash": "^2.4.1",
     "mongodb": "^1.4.0",
     "morgan": "^1.0.1",
     "ngraph.forcelayout": "0.0.4",
     "ngraph.generators": "0.0.2",
-    "ngraph.physics.simulator": "0.0.4",
     "ngraph.graph": "0.0.2",
-    "wildemitter": "^1.0.1"
+    "ngraph.physics.simulator": "0.0.4",
+    "pson": "^1.0.0",
+    "wildemitter": "^1.0.1",
+    "ws": "^0.4.31"
   },
   "devDependencies": {
     "browserify": "^3.46.0",

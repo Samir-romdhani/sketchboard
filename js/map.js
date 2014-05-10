@@ -40,7 +40,7 @@ var bindGlobalInput = require('./ngraph/globalInput.js');
 bindGlobalInput(graphics, layout);
 
 // begin graph animation (add/remove nodes):
-require('./ngraph/animateGraph.js').animate(graph);
+require('./ngraph/fetchData.js')(graph);
 
 // begin frame rendering loop:
 window.requestAnimFrame(renderFrame);

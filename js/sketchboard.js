@@ -7,9 +7,13 @@ var stage = new Stage();
 var render = new Renderer();
 
 var Grid = require('grid.js');
-var grid = new Grid();
+var grid = new Grid({ path: '/api' });
 
-grid.signalingChannel.on('ready', function () {
+grid.signalingChannel.on('open', function () {
+    console.log('Opened websocket connection');
+});
+
+grid.on('ready', function () {
     console.log('Connected to Grid');
 });
 

@@ -3,7 +3,7 @@
 var PIXI = require('pixi.js/bin/pixi.dev.js');
 
 module.exports = function (graphics, layout) {
-    var addWheelListener = require('./addWheelListener');
+    var addWheelListener = require('./addWheelListener.js');
     var graphGraphics = graphics.graphGraphics;
 
     addWheelListener(graphics.domContainer, function (e) {
