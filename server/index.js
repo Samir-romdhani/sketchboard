@@ -52,6 +52,11 @@ grid.on('connection', function (id) {
 
 grid.on('disconnect', function (id) {
     delete nodes[id];
+
+    _(nodes).forEach(function(node) {
+        delete node[id];
+    });
+
     _(grid._sockets).forEach(function (socket, dest) {
         if (dest !== id) {
             try {

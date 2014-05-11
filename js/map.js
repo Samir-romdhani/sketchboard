@@ -51,14 +51,15 @@ function renderFrame() {
 }
 
 function createLayout(graph) {
-  var layout = require('ngraph.forcelayout'),
-  physics = require('ngraph.physics.simulator');
+    var layout = require('ngraph.forcelayout'),
+    physics = require('ngraph.physics.simulator');
 
-  return layout(graph, physics({
-      springLength: 30,
-      springCoeff: 0.0008,
-      dragCoeff: 0.01,
-      gravity: -1.2,
-      theta: 1
-  }));
+    return layout(graph, physics({
+        springLength: 30,
+        springCoeff: 0.0001,
+        gravity: -0.4,
+        theta: 0.8,
+        dragCoeff: 0.02,
+        timeStep : 20
+    }));
 }
