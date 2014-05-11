@@ -4,6 +4,9 @@ var app = require('./app.js');
 var port = Number(process.env.PORT || 8080),
     url  = 'http://localhost:' + port + '/';
 
+var Message = require('grid-protocol').Messages,
+    _ = require('lodash');
+
 var server = app.listen(port, function () {
     console.log('Express server started.');
     console.log(url);
@@ -38,10 +41,24 @@ var nodes = {};
 
 grid.on('connection', function (id) {
     nodes[id] = {};
+    _(grid._sockets).forEach(function (socket, dest) {
+        if (dest !== id) {
+            try {
+                socket.send(Message.Connected(id).toBuffer(), { binary: true });
+            } catch (e) {}
+        }
+    });
 });
 
 grid.on('disconnect', function (id) {
     delete nodes[id];
+    _(grid._sockets).forEach(function (socket, dest) {
+        if (dest !== id) {
+            try {
+                socket.send(Message.Disconnected(id).toBuffer(), { binary: true });
+            } catch (e) {}
+        }
+    });
 });
 
 grid.on('message', function (message) {

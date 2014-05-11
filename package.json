@@ -13,8 +13,9 @@
   "version": "0.0.10",
   "dependencies": {
     "express": "^4",
-    "grid": "~0.0.1",
-    "grid.js": "0.0.4",
+    "grid": "0.0.2",
+    "grid-protocol": "^0.2.1",
+    "grid.js": "0.0.14",
     "hbs": "^2.6.0",
     "lodash": "^2.4.1",
     "mongodb": "^1.4.0",
