@@ -28,13 +28,20 @@ module.exports = function (graph) {
 
         _.forEach(addedNodes, function (id) {
             graph.addNode(id);
-            _.forEach(msg[id], function (link) {
-                graph.addLink(id, link);
+        });
+
+        nodes = msg;
+
+        _.forEach(nodes, function (node, id) {
+            _.forEach(node, function (type, to) {
+                if (!graph.hasLink(id, to)) {
+                    graph.addLink(id, to);
+                }
             });
         });
 
+
         graph.endUpdate();
 
-        nodes = msg;
     };
 };

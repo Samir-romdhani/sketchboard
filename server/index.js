@@ -65,13 +65,13 @@ grid.on('message', function (message) {
     if (message.type !== 'LOG') { return; }
 
     if (message.data.what === 'connecting') {
-        nodes[message.source][message.dest] = 1;
+        nodes[message.source][message.data.where] = 1;
     }
     if (message.data.what === 'connected') {
-        nodes[message.source][message.dest] = 2;
+        nodes[message.source][message.data.where] = 2;
     }
     if (message.data.what === 'disconnected') {
-        delete nodes[message.source][message.dest];
+        delete nodes[message.source][message.data.from];
     }
 });
 
