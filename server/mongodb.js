@@ -41,9 +41,11 @@ module.exports = {
         delete message._id;
 
         db.collection('logs').insert(message, function (error) {
-            sentry.captureError(error, function (result) {
-                console.log(sentry.getIdent(result));
-            });
+            if (error) {
+                sentry.captureError(error, function (result) {
+                    console.log(sentry.getIdent(result));
+                });
+            }
         });
     }
 };
