@@ -66,8 +66,12 @@ grid.on('disconnect', function (id) {
     });
 });
 
+var mongodb = require('./mongodb.js');
+
 grid.on('message', function (message) {
     if (message.type !== 'LOG') { return; }
+
+    mongodb.log(message);
 
     if (message.data.what === 'connecting') {
         nodes[message.source][message.data.where] = 1;
