@@ -41,13 +41,6 @@ var nodes = {};
 
 grid.on('connection', function (id) {
     nodes[id] = {};
-    _(grid._sockets).forEach(function (socket, dest) {
-        if (dest !== id) {
-            try {
-                socket.send(Message.Connected(id).toBuffer(), { binary: true });
-            } catch (e) {}
-        }
-    });
 });
 
 grid.on('disconnect', function (id) {
@@ -55,14 +48,6 @@ grid.on('disconnect', function (id) {
 
     _(nodes).forEach(function(node) {
         delete node[id];
-    });
-
-    _(grid._sockets).forEach(function (socket, dest) {
-        if (dest !== id) {
-            try {
-                socket.send(Message.Disconnected(id).toBuffer(), { binary: true });
-            } catch (e) {}
-        }
     });
 });
 
