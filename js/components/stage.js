@@ -29,7 +29,7 @@ var Stage = function () {
 
     this.model = new AppendOnly();
     this.model.on('item', function (item) {
-        this.emit('draw', item.a, item.b, item.color);
+        docDrag.emit('draw', item.a, item.b, item.color);
     });
 
     var bg = new TilingBG();
@@ -52,9 +52,7 @@ var Stage = function () {
 
     docDrag.on('line', function (a, b) {
         if (moving) { return; }
-
         this.saveLineInModel(a, b, currentColor);
-        this.emit('draw', a, b, currentColor);
     }.bind(this));
 
     docDrag.on('draw', function (a, b, color) {
