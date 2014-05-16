@@ -1,10 +1,11 @@
 'use strict';
 
-var PIXI = require('pixi.js/bin/pixi.dev.js');
-var TilingBG = require('./tiling-bg.js');
-var DOCDrag = require('./doc-drag.js');
-var Sidebar = require('./sidebar.js');
-var Colorsbar = require('./colorsbar.js');
+var PIXI            = require('pixi.js/bin/pixi.dev.js');
+var TilingBG        = require('./tiling-bg.js');
+var DOCDrag         = require('./doc-drag.js');
+var Sidebar         = require('./sidebar.js');
+var Colorsbar       = require('./colorsbar.js');
+var AppendOnly      = require('append-only');
 
 var _ = require('lodash');
 var Emitter = require('wildemitter');
@@ -23,6 +24,13 @@ var quadrant = {
 
 var Stage = function () {
     PIXI.Stage.call(this, 0xFFFFFF, true);
+
+    var currentColor;
+
+    this.model = new AppendOnly();
+    this.model.on('item', function (item) {
+        this.emit('draw', item.a, item.b, item.color);
+    });
 
     var bg = new TilingBG();
     this.addChild(bg);
@@ -44,11 +52,17 @@ var Stage = function () {
 
     docDrag.on('line', function (a, b) {
         if (moving) { return; }
+
+        this.saveLineInModel(a, b, currentColor);
+        this.emit('draw', a, b, currentColor);
+    }.bind(this));
+
+    docDrag.on('draw', function (a, b, color) {
         graphics.lineStyle(2, color, 1);
         graphics.moveTo(a.x - graphics.position.x, a.y - graphics.position.y);
         graphics.lineTo(b.x - graphics.position.x, b.y - graphics.position.y);
         graphics.endFill();
-    });
+    })
 
     this.addChild(docDrag);
 
@@ -81,10 +95,9 @@ var Stage = function () {
     colorsbar.position.x = 20;
     colorsbar.position.y = 100;
 
-    var color;
     colorsbar.on('color', function (clr) {
         sidebar.emit('brush-button');
-        color = clr;
+        currentColor = clr;
     });
 
     this.addChild(colorsbar);
@@ -92,5 +105,9 @@ var Stage = function () {
 
 Stage.prototype = PIXI.Stage.prototype;
 _.mixin(Stage.prototype, Emitter.prototype);
+
+Stage.prototype.saveLineInModel = function saveLineInModel(a, b, color) {
+    this.model.push({ a: a, b: b, c: color });
+};
 
 module.exports = Stage;
