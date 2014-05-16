@@ -13,6 +13,16 @@ grid.on('ready', function (id) {
     console.log('Connected to Grid (' + id + ')');
 });
 
+grid.on('connection', function (conn, id) {
+    console.log('Got connection in Grid (' + id + ')');
+    stage.model.pipe(conn.createWriteableStream({ tag: 'scuttlebutt' }));
+    conn.createReadableStream({ tag: 'scuttlebutt' }).pipe(stage.model);
+});
+
+grid.on('disconnect', function (id) {
+
+});
+
 render.on('frame', function () {
     this.renderer.render(stage);
 });
