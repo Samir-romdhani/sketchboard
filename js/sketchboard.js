@@ -16,12 +16,15 @@ grid.on('ready', function (id) {
 });
 
 grid.on('connection', function (conn, id) {
+    var sc = stage.model.createStream();
     conn.on('open', function () {
         console.log('Opened connection to ' + id);
-        var sc = stage.model.createStream();
-
         sc.pipe(through.obj(function (obj, e, cb) {
-            conn.send(obj);
+            try {
+                conn.send(obj);
+            } catch (e) {
+                console.log('Failed to send ', obj);
+            }
             cb();
         }));
 
@@ -31,6 +34,9 @@ grid.on('connection', function (conn, id) {
         });
 
         incoming.pipe(sc);
+    });
+    conn.on('close', function () {
+        sc.destroy();
     });
 });
 
