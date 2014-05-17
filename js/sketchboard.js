@@ -9,14 +9,29 @@ var render = new Renderer();
 var Grid = require('grid.js');
 var grid = new Grid({ path: '/api' });
 
+var through = require('through2');
+
 grid.on('ready', function (id) {
     console.log('Connected to Grid (' + id + ')');
 });
 
 grid.on('connection', function (conn, id) {
-    console.log('Got connection in Grid (' + id + ')');
-    stage.model.pipe(conn.createWriteableStream({ tag: 'scuttlebutt' }));
-    conn.createReadableStream({ tag: 'scuttlebutt' }).pipe(stage.model);
+    conn.on('open', function () {
+        console.log('Opened connection to ' + id);
+        var sc = stage.model.createStream();
+
+        sc.pipe(through.obj(function (obj, e, cb) {
+            conn.send(obj);
+            cb();
+        }));
+
+        var incoming = through.obj();
+        conn.on('message', function (msg) {
+            incoming.push(msg.data);
+        });
+
+        incoming.pipe(sc);
+    });
 });
 
 grid.on('disconnect', function (id) {

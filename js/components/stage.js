@@ -11,8 +11,8 @@ var _ = require('lodash');
 var Emitter = require('wildemitter');
 
 var quadrant = {
-    x: 0x0BAD,
-    y: 0xFACE,
+    x: 0,
+    y: 0,
     toString: function () {
         return this.x.toString(16) + " : " + this.y.toString(16);
     },
@@ -25,11 +25,11 @@ var quadrant = {
 var Stage = function () {
     PIXI.Stage.call(this, 0xFFFFFF, true);
 
-    var currentColor;
+    var currentColor = 0x000000;
 
     this.model = new AppendOnly();
     this.model.on('item', function (item) {
-        docDrag.emit('draw', item.a, item.b, item.color);
+        docDrag.emit('draw', item.a, item.b, item.c);
     });
 
     var bg = new TilingBG();
@@ -52,13 +52,20 @@ var Stage = function () {
 
     docDrag.on('line', function (a, b) {
         if (moving) { return; }
-        this.saveLineInModel(a, b, currentColor);
+        // Convert from local coordinates to
+        this.saveLineInModel({
+            x: a.x - graphics.position.x,
+            y: a.y - graphics.position.y,
+        }, {
+            x: b.x - graphics.position.x,
+            y: b.y - graphics.position.y,
+        }, currentColor);
     }.bind(this));
 
     docDrag.on('draw', function (a, b, color) {
-        graphics.lineStyle(2, color, 1);
-        graphics.moveTo(a.x - graphics.position.x, a.y - graphics.position.y);
-        graphics.lineTo(b.x - graphics.position.x, b.y - graphics.position.y);
+        graphics.lineStyle(2, color || currentColor, 1);
+        graphics.moveTo(a.x, a.y);
+        graphics.lineTo(b.x, b.y);
         graphics.endFill();
     })
 
