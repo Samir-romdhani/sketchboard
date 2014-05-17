@@ -10,7 +10,7 @@
     "test": "mocha tests/*.test.js -R spec",
     "start": "node server"
   },
-  "version": "0.0.18",
+  "version": "0.0.19",
   "dependencies": {
     "append-only": "^0.2.3",
     "connect-once": "^0.1.0",
