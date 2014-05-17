@@ -7,7 +7,7 @@ var stage = new Stage();
 var render = new Renderer();
 
 var Grid = require('grid.js');
-var grid = new Grid({ path: '/api' });
+var grid = new Grid({ path: '/api', reliable: true });
 
 var through = require('through2');
 
